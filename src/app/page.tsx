@@ -27,7 +27,7 @@ export default function HomePage() {
 
       {/* Features */}
       <section className="py-16 px-4 bg-muted/50">
-        <div className="container max-w-5xl">
+        <div className="container mx-auto max-w-5xl">
           <h2 className="text-2xl font-bold text-center mb-12">主な機能</h2>
           <div className="grid md:grid-cols-3 gap-8">
             <div className="flex flex-col items-center text-center p-6">
@@ -60,7 +60,7 @@ export default function HomePage() {
 
       {/* SNS Feature */}
       <section className="py-16 px-4">
-        <div className="container max-w-5xl">
+        <div className="container mx-auto max-w-5xl">
           <div className="flex flex-col md:flex-row items-center gap-8">
             <div className="flex-1">
               <Users className="h-10 w-10 mb-4 text-primary" />
@@ -87,7 +87,7 @@ export default function HomePage() {
 
       {/* Footer */}
       <footer className="py-8 px-4 border-t">
-        <div className="container text-center text-sm text-muted-foreground">
+        <div className="container mx-auto max-w-5xl text-center text-sm text-muted-foreground">
           <p>&copy; 2025 Coffee Log. All rights reserved.</p>
         </div>
       </footer>
