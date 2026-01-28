@@ -79,20 +79,31 @@ npm run dev
 
 ### 本番環境へのデプロイ
 
-詳細なデプロイ手順は **[DEPLOY.md](./DEPLOY.md)** を参照してください。
+**5ステップで簡単デプロイ！**
 
-Vercelへのデプロイ推奨：
-1. GitHubリポジトリを作成
-2. Vercelでプロジェクトをインポート
-3. 環境変数を設定
-4. デプロイ
+詳細は **[QUICK_DEPLOY_GUIDE.md](./QUICK_DEPLOY_GUIDE.md)** を参照してください。
+
+```bash
+# 1. GitHubにプッシュ
+git push -u origin main
+
+# 2. Supabaseでデータベース作成
+# 3. AUTH_SECRET生成
+# 4. Vercelでインポート・環境変数設定
+# 5. AUTH_URL更新
+```
+
+完全なデプロイ手順: **[DEPLOY.md](./DEPLOY.md)**
 
 ---
 
-## ドキュメント
+## 📚 ドキュメント
 
-- **[STARTUP.md](./STARTUP.md)** - ローカル開発環境のセットアップと起動方法
-- **[DEPLOY.md](./DEPLOY.md)** - 本番環境へのデプロイ手順
+- **[QUICK_DEPLOY_GUIDE.md](./QUICK_DEPLOY_GUIDE.md)** - 5ステップ簡単デプロイガイド 🚀
+- **[GITHUB_PUSH_INSTRUCTIONS.md](./GITHUB_PUSH_INSTRUCTIONS.md)** - GitHubへのプッシュ方法
+- **[VERCEL_DEPLOY_INSTRUCTIONS.md](./VERCEL_DEPLOY_INSTRUCTIONS.md)** - Vercelデプロイ詳細手順
+- **[DEPLOY.md](./DEPLOY.md)** - 完全版デプロイガイド
+- **[STARTUP.md](./STARTUP.md)** - ローカル開発環境のセットアップ
 - **[README.md](./README.md)** - プロジェクト概要（このファイル）
 
 ---
