@@ -1,0 +1,117 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  passwordHash String
+  username     String    @unique
+  displayName  String?
+  avatarUrl    String?
+  bio          String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  logs         CoffeeLog[]
+  beans        Bean[]
+  likes        Like[]
+  comments     Comment[]
+  followers    Follow[]  @relation("following")
+  following    Follow[]  @relation("follower")
+}
+
+model CoffeeLog {
+  id           String   @id @default(cuid())
+  userId       String
+  dateTime     DateTime
+  title        String
+  locationType String   // cafe | home | other
+  placeName    String?
+  drinkType    String?
+  roastLevel   String   // light | medium | dark
+  origin       String?
+  variety      String?
+  process      String?
+  rating       Int      // 1-5
+  memo         String?
+  photoUrl     String?
+  visibility   String   @default("private") // private | public
+  tasteX       Int      // -100 to +100 (渋み ↔ 酸味)
+  roastY       Int      // 0 to 100 (浅煎り ↔ 深煎り)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  likes        Like[]
+  comments     Comment[]
+
+  @@index([userId])
+  @@index([visibility])
+  @@index([dateTime])
+}
+
+model Bean {
+  id         String   @id @default(cuid())
+  userId     String
+  name       String
+  roastLevel String   // light | medium | dark
+  origin     String?
+  variety    String?
+  process    String?
+  memo       String?
+  tasteX     Int      // -100 to +100 (渋み ↔ 酸味)
+  roastY     Int      // 0 to 100 (浅煎り ↔ 深煎り)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model Like {
+  id        String   @id @default(cuid())
+  userId    String
+  logId     String
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  log       CoffeeLog @relation(fields: [logId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, logId])
+  @@index([logId])
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  userId    String
+  logId     String
+  body      String
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  log       CoffeeLog @relation(fields: [logId], references: [id], onDelete: Cascade)
+
+  @@index([logId])
+  @@index([userId])
+}
+
+model Follow {
+  id          String   @id @default(cuid())
+  followerId  String
+  followingId String
+  createdAt   DateTime @default(now())
+
+  follower    User     @relation("follower", fields: [followerId], references: [id], onDelete: Cascade)
+  following   User     @relation("following", fields: [followingId], references: [id], onDelete: Cascade)
+
+  @@unique([followerId, followingId])
+  @@index([followerId])
+  @@index([followingId])
+}
